@@ -2,119 +2,179 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Football Team Statistics</title>
     <style>
+        /* Dark Mode Styling */
         body {
             background-color: #121212;
-            color: #ffffff;
+            color: #e0e0e0;
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
+            background-color: #1e1e1e;
         }
         th, td {
-            border: 1px solid #444444;
-            padding: 8px;
+            border: 1px solid #333;
+            padding: 12px;
             text-align: center;
         }
         th {
+            background-color: #212121;
+            color: #ffffff;
+        }
+        tr:nth-child(even) {
+            background-color: #1a1a1a;
+        }
+        tr:hover {
             background-color: #333333;
         }
-        .team-delantero, .team-{} > div {
-            background-color: #000000;
-            border-color: #ffff00;  /* Change to bright border color as uniquely identifying visual cue */
+        /* Button Styling */
+        .button {
+            padding: 10px 20px;
+            margin: 20px 0;
+            background-color: #2962ff;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
         }
-        .team-potential {
-            background-color: #ff8c00;
+        .button:hover {
+            background-color: #0039cb;
         }
-        .team-no {
-            background-color: #00ff00;
-        }
-        .team-emperion {
-            background-color: #0000ff;
-        }
-        .team-divinia {
-            background-color: #4b0082;
-        }
-        .team-vasco {
-            background-color: #ff0000;
-        }
-        .team-royal {
-            background-color: #ffff00;
-            color: #000000;
+        input[type="text"] {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            border: 1px solid #333;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
         }
     </style>
 </head>
 <body>
-    <table>
+    <h1>Football Team Statistics</h1>
+    <table id="teamTable">
         <thead>
             <tr>
-                <th>Teams</th>
+                <th>Team</th>
+                <th>Status</th>
                 <th>Matches Played</th>
-                <th>GA</th>
+                <th>Wins</th>
+                <th>Draws</th>
+                <th>Losses</th>
+                <th>Goals For</th>
+                <th>Goals Against</th>
+                <th>Goal Difference</th>
+                <th>Points</th>
             </tr>
         </thead>
-        <tbody id="teams">
-            <tr class="team-delantero">
+        <tbody>
+            <tr>
                 <td>Delantero Unico</td>
                 <td>DONE</td>
-                <td>66</td>
-                <td>84</td>
-                <td>18</td>
-                <td>84</td>
                 <td>46</td>
                 <td>7</td>
                 <td>6</td>
                 <td>7</td>
+                <td>84</td>
+                <td>66</td>
+                <td>18</td>
+                <td>84</td>
             </tr>
-            <tr class="team-potential">
+            <tr>
                 <td>Potential FC</td>
                 <td>DISBAND</td>
-                <td>79</td>
-                <td>36</td>
-                <td>-43</td>
-                <td>36</td>
                 <td>17</td>
                 <td>2</td>
                 <td>6</td>
                 <td>2</td>
+                <td>36</td>
+                <td>79</td>
+                <td>-43</td>
+                <td>36</td>
             </tr>
-            <tr class="team-no">
+            <tr>
                 <td>No FC</td>
                 <td>DONE</td>
-                <td>51</td>
-                </td>
-                <td>88</td>
-                <td>37</td>
-                <td>88</td>
                 <td>47</td>
                 <td>10</td>
-                <td>1 <button onclick="editRow()">Edit</button>  
-                  <button onclick="deleteRow()">Delete</button></td> <!-- Column narrowing fix, creating a manageable UI -->
+                <td>1</td>
+                <td>4</td>
+                <td>88</td>
+                <td>51</td>
+                <td>37</td>
+                <td>88</td>
             </tr>
+            <tr>
+                <td>Emperion FC</td>
+                <td>ACTIVE</td>
+                <td>38</td>
+                <td>15</td>
+                <td>9</td>
+                <td>14</td>
+                <td>60</td>
+                <td>55</td>
+                <td>5</td>
+                <td>54</td>
+            </tr>
+            <tr>
+                <td>Divinia FC</td>
+                <td>ACTIVE</td>
+                <td>42</td>
+                <td>18</td>
+                <td>6</td>
+                <td>18</td>
+                <td>70</td>
+                <td>65</td>
+                <td>5</td>
+                <td>60</td>
+            </tr>
+            <tr>
+                <td>Vasco FC</td>
+                <td>ACTIVE</td>
+                <td>45</td>
+                <td>20</td>
+                <td>5</td>
+                <td>20</td>
+                <td>75</td>
+                <td>70</td>
+                <td>5</td>
+                <td>65</td>
+            </tr>
+            <tr>
+                <td>Royal FC</td>
+                <td>ACTIVE</td>
+                <td>40</td>
+                <td>16</td>
+                <td>8</td>
+                <td>16</td>
+                <td>65</td>
+                <td>60</td>
+                <td>5</td>
+                <td>56</td>
+            </tr>
+            <!-- You can add more teams here -->
         </tbody>
     </table>
+    <button class="button" onclick="addRow()">Add New Team</button>
+
     <script>
         function addRow() {
-            var table = document.getElementById("teams");
-            var row = table.insertRow(-1);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            // Add more cells with form input elements for user to fill team information
-            cell1.innerHTML = '<input type="text" placeholder="Team Name">';
-            cell2.innerHTML = '<input type="text" placeholder="Matches Played">';
-            cell3.innerHTML = '+ // Repeat for remaining columns +\n';
-        }
-        function editRow() {
-            // Add code to allow users to edit rows (e.g., convert cells into editable text inputs)
-        }
-        function deleteRow(rowIndex) {
-            document.getElementById("teams").deleteRow(rowIndex);
+            var table = document.getElementById("teamTable").getElementsByTagName('tbody')[0];
+            var newRow = table.insertRow();
+            for (var i = 0; i < 10; i++) {
+                var newCell = newRow.insertCell(i);
+                newCell.innerHTML = '<input type="text">';
+            }
         }
     </script>
 </body>
-</html>  
-```[_{{{CITATION{{{_1{](https://github.com/buribalazs/smooth-drag-order/tree/7b40d21d076c3e31765f61481f537beaf4c5ec9f/README.md)
+</html>
